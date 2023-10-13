@@ -7,7 +7,7 @@ if __name__ == "__main__":
     app = create_app()
     with app.app_context():
         db_session = get_db()
-        admin = User(name='Kunal Sharma', email='kunal.ucet@gmail.com', password='admin', admin=True)
+        admin = User(name='admin', email='admin@example.com', password='admin', admin=True)
         db_session.add(admin)
         db_session.commit()
         print(f'Admin user created: {admin.name}')
