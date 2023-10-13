@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Account</title>
+    <!-- Bootstrap CSS link -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='edit_account.css') }}">
+
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h2 class="text-center mb-4">Edit Account</h2>
+                <div id="userDetails">
+                    <!-- User details will be displayed here -->
+                    <p><strong>Name:</strong> {{ data.name }} </p>
+                    <p><strong>Email:</strong> {{ data.email }} </p>
+                </div>
+                <div id="changePasswordForm" class="mt-4">
+                    <h4>Change Password</h4>
+                    <form id="passwordForm">
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" class="form-control" id="newPassword" name="new_password" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid password.
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Save Changes</button>        
+                    </form>
+                    <button type="button" class="btn btn-secondary btn-block" id="goToDashboard">Go to Dashboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- JavaScript for handling account edit form submission -->
+    <script src="{{ url_for('static', filename='edit_account.js') }}"></script>
+</body>
+
+</html>

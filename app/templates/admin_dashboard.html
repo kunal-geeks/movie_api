@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap CSS Link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_dashboard.css') }}"></link>    
+</head>
+
+<body>
+<!-- Navbar with user name and dropdown menu -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Admin Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <span class="navbar-text mr-2">
+                    Welcome, 
+                </span>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <strong>{{ admin_name }}</strong>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" id='logoutBtn'>Logout</a>
+                    <a class="dropdown-item" id='editAccountBtn'>Change Password</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+    <!-- Content Area -->
+    <div class="container mt-4">
+        <!-- Add Movie Section -->
+        <div class="card mb-4">
+            <div class="card-header">Add Movie</div>
+            <div class="card-body">
+                <form id="addMovieForm" class="row">
+                    <div class="form-group col-md-4">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control colorful-input" id="name" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="director">Director</label>
+                        <input type="text" class="form-control colorful-input" id="director" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="genre">Genre</label>
+                        <input type="text" class="form-control colorful-input" id="genre" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="popularity">Popularity</label>
+                        <input type="number" step="0.01" class="form-control colorful-input" id="popularity" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="imdbScore">IMDB Score</label>
+                        <input type="number" step="0.01" class="form-control colorful-input" id="imdbScore" required>
+                    </div>
+                    <div class="form-group col-md-12 mt-3">
+                        <button type="submit" class="btn btn-primary">Add Movie</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Search and Manage Movie Section -->
+        <div class="card mb-4">
+            <div class="card-header">Search and Manage Movies</div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="searchMovie">Enter Movie ID</label>
+                    <input type="text" class="form-control" id="searchMovie">
+                    <button type="button" class="btn btn-primary mt-2" id="searchMovieBtn">Search</button>
+                </div>
+                <div id="movieInfo"></div>
+            </div>
+        </div>
+
+    <!-- Movie Logs Section -->
+    <div class="card mt-4">
+        <div class="card-header bg-primary text-white">
+            Movie Logs
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr class="bg-light">
+                            <th scope="col">Log ID</th>
+                            <th scope="col">Movie ID</th>
+                            <th scope="col">Movie Name</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="movieLogsTableBody">
+                        <!-- Movie log rows will be added here dynamically using JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS, Axios for API calls, and Custom JS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- JavaScript for handling admin dashboard -->
+    <script src="{{ url_for('static', filename='admin_dashboard.js') }}"></script>
+</body>
+
+</html>

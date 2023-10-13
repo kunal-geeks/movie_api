@@ -1,0 +1,92 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+/* CSS for Movie Cards */
+.movies-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.movie-card {
+    background-color: #87CEEB; /* Light Sky Blue */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    text-align: left;
+    transition: all 0.3s ease;
+    max-width: 300px; /* Set maximum width for responsiveness */
+}
+
+.movie-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #fff; /* White */
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.card-text {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: bold;
+    font-family: 'Sans-Serif', sans-serif, monospace, serif;
+}
+
+/* Responsive Design with CSS Grid */
+@media (max-width: 1200px) {
+    .movies-container {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .movies-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}        
+                     
+.form-group {
+    background-color: #343a40; /* Background color */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Padding inside the form groups */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift */
+    transition: all 0.3s ease; /* Smooth transition effect */
+    color: white; /* Text color */
+}
+
+.form-group label {
+    margin-bottom: 10px; /* Spacing between label and select element */
+}
+
+.form-group select {
+    background-color: #212529; /* Select element background color */
+    color: white; /* Select element text color */
+    border: none; /* Remove border */
+}
+/* CSS */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 50%;
+    margin-right: 10px;
+}        
