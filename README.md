@@ -19,11 +19,10 @@ This is a movie API project built with Flask and SQLite. It allows users to regi
     python -m venv venv
     
 3. Activate the virtual environment:
--On Windows:
+- On Windows:
     ```sh
     venv\Scripts\activate
-
--On macOS and Linux:
+- On macOS and Linux:
     ```sh
     source venv/bin/activate
 
@@ -32,8 +31,10 @@ This is a movie API project built with Flask and SQLite. It allows users to regi
     pip install -r requirements.txt
 
 5. Create a .env file in the project root and set your ZeroBounce API key:
--ZEROBOUNCE_API_KEY=your_api_key
--Get your API key by registering at ZeroBounce "https://www.zerobounce.net/members/signin"
+
+
+- ZEROBOUNCE_API_KEY=your_api_key
+- Get your API key by registering at ZeroBounce "https://www.zerobounce.net/members/signin"
 
 6. Populate the SQLite database:
     ```sh
@@ -51,9 +52,9 @@ This is a movie API project built with Flask and SQLite. It allows users to regi
     ```sh
     python add_admin.py
 
--Admin credentials:
---Email: admin@example.com
---Password: admin
+Admin credentials:
+- Email: admin@example.com
+- Password: admin
 
 10. Run the application:
     ```sh
@@ -62,11 +63,12 @@ This is a movie API project built with Flask and SQLite. It allows users to regi
 -Access the application in your browser: http://127.0.0.1:5000
 
 11. Demo
--For a live demo, visit https://kunal7777.pythonanywhere.com/
+For a live demo, visit https://kunal7777.pythonanywhere.com/
 
--Admin Credentials:
---Email: admin@example.com
---Password: admin
+Admin Credentials:
+
+- Email: admin@example.com
+- Password: admin
 
 12. Tests
 To run tests, use pytest:
