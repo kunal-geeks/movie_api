@@ -14,6 +14,7 @@
             } else {
                 $('#response-message').removeClass('alert-success').addClass('alert-danger').text(data.message).removeClass('d-none');
             }
+            document.getElementById('registration-form').reset();
         })
         .catch(error => console.error('Error:', error));
     }); 
