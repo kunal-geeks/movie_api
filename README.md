@@ -74,16 +74,16 @@ User Credentials: you can register with valid email id
 
 12. Tests
 
-To run tests, use pytest:
+- To run tests, use pytest:
     ```sh
     pytest
 
-13. To view the test coverage report:
+- To view the test coverage report:
     ```sh
     coverage run -m pytest
     coverage report
 
-14. For a detailed HTML coverage report:
+- For a detailed HTML coverage report:
     ```sh
     coverage html
 
