@@ -23,13 +23,43 @@ class User(db.Model):
         self.admin = admin
     
     def _hash_password(self, password):
+        """
+        Hashes a given password using bcrypt.
+
+        Parameters:
+            password (str): The password to be hashed.
+
+        Returns:
+            str: The hashed password.
+        """
         salt = bcrypt.gensalt()
         hashed = bcrypt.hashpw(password.encode('utf-8'), salt)
         return hashed.decode('utf-8')
         
     def check_password(self, password):
+        """
+        Checks if the provided password matches the stored password.
+
+        Parameters:
+            password (str): The password to be checked.
+
+        Returns:
+            bool: True if the password matches, False otherwise.
+        """
         return bcrypt.checkpw(password.encode('utf-8'), self.password.encode('utf-8')) 
     def encode_auth_token(self, expires_in):
+        """
+        Generates an authentication token for the user.
+
+        Args:
+            expires_in (int): The number of seconds for which the token will be valid.
+
+        Returns:
+            str: The encoded authentication token.
+
+        Raises:
+            Exception: If an error occurs while encoding the token.
+        """
         try:
             now = datetime.datetime.utcnow()
             payload = {
@@ -97,12 +127,41 @@ class Movie(db.Model):
     imdb_score = db.Column(db.Float, nullable=False)
 
     def set_genre(self, genres):
+        """
+        Set the genre of the object.
+
+        Args:
+            genres (list): A list of genres to set.
+
+        Returns:
+            None
+        """
         self.genre = json.dumps(genres)  # Convert list to JSON string for storage
     
     def get_genre(self):
+        """
+        Parses a JSON string representing a genre list and returns the parsed list.
+
+        Returns:
+            list: The parsed genre list.
+        """
         return json.loads(self.genre) if self.genre else []  # Parse JSON string back to list
 
     def serialize(self):
+        """
+        Serializes the object into a dictionary representation.
+
+        Returns:
+            dict: A dictionary containing the serialized object.
+                The dictionary has the following keys:
+                - 'id' (int): The ID of the object.
+                - 'name' (str): The name of the object.
+                - 'director' (str): The director of the object.
+                - 'genre' (list): The genre(s) of the object, retrieved as a list.
+                - 'popularity' (float): The popularity score of the object.
+                - 'imdb_score' (float): The IMDb score of the object.
+                - ... (other attributes as needed)
+        """
         return {
             'id': self.id,
             'name': self.name,
@@ -121,6 +180,17 @@ class Genre(db.Model):
     movie = db.relationship('Movie', backref='genres')
 
     def serialize(self):
+        """
+        Serializes the object into a dictionary.
+
+        Returns:
+            dict: A dictionary representation of the object with the following keys:
+                  - 'id' (int): The ID of the object.
+                  - 'name' (str): The name of the object.
+                  - 'movie_id' (int): The ID of the movie associated with the object.
+                  - 'movie' (dict or None): A dictionary representation of the associated movie
+                                            if it exists, otherwise None.
+        """
         return {
             'id': self.id,
             'name': self.name,
@@ -139,6 +209,17 @@ class MoviesLog(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     def __init__(self, movie_id, movie_name, action):
+        """
+        Initializes a new instance of the class.
+
+        Parameters:
+            movie_id (int): The ID of the movie.
+            movie_name (str): The name of the movie.
+            action (str): The action to be performed.
+
+        Returns:
+            None
+        """
         self.movie_id = movie_id
         self.movie_name = movie_name
         self.action = action

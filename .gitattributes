@@ -1,0 +1,23 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# Explicitly declare text files you want to always be normalized and converted to LF on checkout.
+*.c text
+*.h text
+
+# Declare files that will always have CRLF line endings on checkout.
+*.sln text eol=crlf
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary
+
+# Set the default behavior to LF (Unix-style line endings)
+* text eol=lf
+
+# Explicitly specify files that should have CRLF endings on Windows
+*.bat text eol=crlf
+
+# Specify any other file types that need specific line endings
+# For example, if you have Python files, you might want to add:
+# *.py text eol=lf

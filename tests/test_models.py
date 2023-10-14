@@ -1,6 +1,16 @@
 from app.models import BlacklistToken, User, Movie, Genre, MoviesLog
 
 def test_user_model(app, db_session):
+    """
+    This function is used to test the user model.
+
+    Parameters:
+    - app: The Flask app object.
+    - db_session: The database session object.
+
+    Returns:
+    - None
+    """
     with app.app_context():
         user = User(name='Test User', email='test@example.com', password='password')
         db_session.add(user)
@@ -11,6 +21,16 @@ def test_user_model(app, db_session):
         assert user.check_password('password') is True
 
 def test_movie_model(app, db_session):
+    """
+    Test the movie model by creating a movie with the given attributes and adding it to the database.
+
+    Parameters:
+    - app: The Flask application object.
+    - db_session: The database session object.
+
+    Returns:
+    None
+    """
     with app.app_context():
         # Create a movie with genres provided as a list
         movie = Movie(name='Test Movie', director='Director', popularity=7.5, imdb_score=8.0)
@@ -30,6 +50,16 @@ def test_movie_model(app, db_session):
         }
 
 def test_genre_model(app, db_session):
+    """
+    Function to test the genre model.
+
+    Parameters:
+    - app: The Flask application instance.
+    - db_session: The database session.
+
+    Returns:
+    - None
+    """
     with app.app_context():
         movie = Movie(name='Test Movie', director='Director', popularity=7.5, imdb_score=8.0)
         movie.set_genre(['Action'])
@@ -47,6 +77,16 @@ def test_genre_model(app, db_session):
         }
 
 def test_movies_log_model(app, db_session):
+    """
+    Creates a test movie log model.
+
+    Args:
+        app: The Flask application instance.
+        db_session: The database session.
+
+    Returns:
+        None.
+    """
     with app.app_context():
         log = MoviesLog(movie_id=1, movie_name='Test Movie', action='ADDED')
         db_session.add(log)
@@ -56,6 +96,16 @@ def test_movies_log_model(app, db_session):
         assert db_session.get(MoviesLog,log.id) == log
 
 def test_blacklist_token_model(app, db_session):
+    """
+    Function to test the `BlacklistToken` model.
+
+    Args:
+        app (Flask): The Flask application object.
+        db_session (Session): The database session object.
+
+    Returns:
+        None
+    """
     with app.app_context():
         token = 'test_token'
         blacklist_token = BlacklistToken(token=token)

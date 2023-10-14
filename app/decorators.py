@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import current_app, jsonify, redirect, request, g
+from flask import current_app, redirect, request, g
 from app.models import User
 from app.database import get_db
 
@@ -7,8 +7,31 @@ db_session = get_db()
 
 # Decorator function to protect routes with JWT authentication
 def token_required(f):
+    """
+    Decorator function that validates an authentication token before executing the decorated function.
+    
+    Args:
+        f (function): The function to be decorated.
+    
+    Returns:
+        function: The decorated function.
+    """
     @wraps(f)
     def decorated_function(*args, **kwargs):
+        """
+        Decorator function that adds authentication to a route.
+
+        Parameters:
+            *args: Variable length argument list.
+            **kwargs: Arbitrary keyword arguments.
+
+        Returns:
+            The result of the decorated function.
+
+        Raises:
+            Redirect: If the authentication token is missing or invalid.
+
+        """
         if current_app.testing:
             auth_token = request.headers.get('Authorization')
             if auth_token:
@@ -29,3 +52,11 @@ def token_required(f):
         return f(*args, **kwargs)
 
     return decorated_function
+
+
+def get_db():
+    """
+    This is a mock function for get_db().
+    """
+    pass
+

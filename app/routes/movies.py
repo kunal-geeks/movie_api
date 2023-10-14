@@ -12,6 +12,25 @@ api_bp = Blueprint('api', __name__, url_prefix='/api')
 @api_bp.route('/get_movies', methods=['GET'])
 @token_required
 def get_movies():
+    """
+    Retrieves a list of movies based on the specified filters and search query.
+
+    Parameters:
+    - page (int): The page number of the movie list to retrieve (default: 1).
+    - genre (str): The genre of the movies to filter by (default: '').
+    - sort (str): The field to sort the movies by ('imdb_score' or 'popularity', default: 'imdb_score').
+    - order (str): The order to sort the movies in ('asc' or 'desc', default: 'asc').
+    - search (str): The search query to filter movies by name or director (default: '').
+
+    Returns:
+    - response (json): A JSON object containing the list of movies and the total number of pages.
+        - movies (list): A list of movie objects, each containing the movie details.
+        - total_pages (int): The total number of pages in the movie list.
+
+    Example Usage:
+    GET /get_movies?page=1&genre=action&sort=imdb_score&order=desc&search=matrix
+    
+    """
     page = request.args.get('page', 1, type=int)
     genre_filter = request.args.get('genre', '', type=str)
     sort_by = request.args.get('sort', 'imdb_score', type=str)
@@ -61,6 +80,12 @@ def get_movies():
 @api_bp.route('/get_genres', methods=['GET'])
 @token_required
 def get_genres():
+    """
+    Get the list of all genres.
+
+    Returns:
+        A JSON response containing the list of unique genres and HTTP status code 200.
+    """
     genres = db_session.query(Genre.name.distinct()).all()
     unique_genres = [genre[0] for genre in genres]
     return jsonify({'genres': unique_genres}), 200
@@ -69,6 +94,36 @@ def get_genres():
 @api_bp.route('/movies', methods=['POST'])
 @token_required
 def add_movie():
+    """
+    Adds a new movie to the database.
+
+    Parameters:
+    - None
+
+    Returns:
+    - A JSON object with the following keys:
+        - message (str): A message indicating whether the movie was added successfully.
+
+    Raises:
+    - HTTPException: If the user is not an admin, returns a 403 Forbidden error.
+
+    Side Effects:
+    - Creates a new movie record in the database.
+    - Creates a new log entry in the MoviesLog table.
+
+    Example Usage:
+    ```
+    response = add_movie()
+    print(response)
+    ```
+
+    Example Output:
+    ```
+    {
+        'message': 'Movie added successfully!'
+    }
+    ```
+    """
     if not g.user.admin:
         return jsonify(message='Admin privilege required'), 403
 
@@ -101,6 +156,24 @@ def add_movie():
 @api_bp.route('/movies/<int:movie_id>', methods=['PUT', 'DELETE', 'GET'])
 @token_required
 def manage_movie(movie_id):
+    """
+    Manage a movie by its ID.
+
+    Args:
+        movie_id (int): The ID of the movie to manage.
+
+    Returns:
+        Response: The response object containing the result of the operation.
+
+    Raises:
+        HTTPException: If the user is not an admin.
+
+    Methods:
+        - `PUT`: Update the movie details.
+        - `DELETE`: Delete the movie.
+        - `GET`: Get the details of the movie.
+
+    """
     if not g.user.admin:
         return jsonify(message='Admin privilege required'), 403
     
@@ -141,6 +214,18 @@ def manage_movie(movie_id):
 @api_bp.route('/movie_logs', methods=['GET'])
 @token_required
 def get_movie_logs():
+    """
+    Get movie logs from the database and serialize them.
+
+    Returns:
+        A JSON response containing a list of serialized movie logs.
+
+    Raises:
+        403 Forbidden: If the user is not an admin.
+
+    Example Usage:
+        response = get_movie_logs()
+    """
     if not g.user.admin:
         return jsonify(message='Admin privilege required'), 403
     # Query movie logs from the database

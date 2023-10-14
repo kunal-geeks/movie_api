@@ -3,13 +3,18 @@ from app.decorators import token_required
 from app.mail_utils import validate_email
 from app.models import BlacklistToken, User
 from app.database import get_db
-from functools import wraps
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 db_session = get_db()
 
 @auth_bp.route('/register', methods=['POST', 'GET'])
 def register():
+    """
+    Registers a user with the provided information.
+
+    Returns:
+        A response object with the status and message.
+    """
     if request.method == 'POST':
         # get the post data
         if current_app.testing:
@@ -72,6 +77,28 @@ def register():
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    Logs in a user by authenticating their credentials and generating an authentication token.
+
+    Parameters:
+        None
+
+    Returns:
+        If the login is successful:
+            - A response object with status code 200 and a success message.
+            - The response object also contains an authentication token set as a cookie.
+        
+        If the login fails due to an incorrect password:
+            - A response object with status code 400 and a failure message.
+
+        If the user does not exist:
+            - A response object with status code 404 and a failure message.
+
+        If an error occurs during the login process:
+            - A response object with status code 500 and an error message.
+
+    Note: The authentication token has a default expiry time of 24 hours (86400 seconds).
+    """
     if request.method == 'POST':
         # get the post data
         if current_app.testing:
@@ -122,6 +149,15 @@ def login():
 
 @auth_bp.route('/status', methods=['GET'])
 def status():
+    """
+    Retrieves the status of the authentication.
+
+    Returns:
+        A response object containing the status of the authentication. If the authentication is successful, the response object will contain the user's information, including the user ID, username, email, admin status, and registration date. If the authentication fails, the response object will contain an error message.
+
+    Raises:
+        None.
+    """
     # get the auth token
     auth_header = request.headers.get('Authorization')
     if auth_header:
@@ -156,6 +192,15 @@ def status():
         return make_response(jsonify(responseObject)), 401
     
 def blacklist_token(auth_token):
+    """
+    Blacklists the given authentication token.
+
+    Parameters:
+        auth_token (str): The authentication token to be blacklisted.
+
+    Returns:
+        bool: True if the token is successfully blacklisted, False otherwise.
+    """
     try:
         blacklist_token = BlacklistToken(token=auth_token)
         db_session.add(blacklist_token)
@@ -167,10 +212,34 @@ def blacklist_token(auth_token):
         return False
 
 def clear_auth_cookie(response, domain):
+    """
+    Clear the authentication cookie from the given response.
+
+    Parameters:
+        response (HttpResponse): The response object from which to clear the cookie.
+        domain (str): The domain for which the cookie should be cleared.
+
+    Returns:
+        HttpResponse: The response object with the cookie cleared.
+    """
     response.delete_cookie('auth_token', domain=domain)
     return response
 
 def perform_logout(auth_token, testing=False):
+    """
+    Perform a logout operation.
+
+    Parameters:
+        auth_token (str): The authentication token.
+        testing (bool, optional): Whether or not the function is being called during testing. Defaults to False.
+
+    Returns:
+        dict: A dictionary containing a message indicating the result of the operation.
+        int: The HTTP status code indicating the result of the operation.
+
+    Raises:
+        Exception: If an error occurs while processing the request.
+    """
     try:
         if not auth_token:
             return {'message': 'No valid auth token found'}, 401
@@ -190,6 +259,12 @@ def perform_logout(auth_token, testing=False):
 @auth_bp.route('/logout', methods=['POST'], endpoint='logout')
 @token_required
 def logout():
+    """
+    Logs out the current user by invalidating their authentication token.
+    
+    Returns:
+        A Flask response object with a JSON message indicating the result of the logout attempt.
+    """
     try:
         if current_app.testing:
             auth_token = request.headers.get('Authorization')

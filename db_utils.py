@@ -3,6 +3,14 @@ from app.database import get_db, close_db
 from app.models import Movie, Genre, User, BlacklistToken
 
 def empty_database():
+    """
+    Empties the entire database by deleting all records from the Movie, Genre, User, and BlacklistToken tables.
+    This function does not take any parameters.
+    It does not return anything.
+
+    Example usage:
+    empty_database()
+    """
     db_session = get_db()
     db_session.query(Movie).delete()
     db_session.query(Genre).delete()
@@ -12,6 +20,16 @@ def empty_database():
     db_session.close()
 
 def load_data_from_json(filename, app):
+    """
+    Loads data from a JSON file and populates the database with movie and genre information.
+
+    Parameters:
+        filename (str): The path to the JSON file containing the movie data.
+        app (Flask): The Flask application object.
+
+    Returns:
+        None
+    """
     with app.app_context():
         db_session = get_db()
         try:
