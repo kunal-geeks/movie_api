@@ -60,7 +60,7 @@ Admin credentials:
     ```sh
     flask run
 
--Access the application in your browser: http://127.0.0.1:5000
+- Access the application in your browser: http://127.0.0.1:5000
 
 11. Demo
 For a live demo, visit https://kunal7777.pythonanywhere.com/
