@@ -34,7 +34,7 @@ This is a movie API project built with Flask and SQLite. It allows users to regi
 
 
 - ZEROBOUNCE_API_KEY=your_api_key
-- Get your API key by registering at ZeroBounce "https://www.zerobounce.net/members/signin"
+- Get your API key by registering at https://www.zerobounce.net/members/signin
 
 6. Populate the SQLite database:
     ```sh
@@ -70,6 +70,7 @@ Admin Credentials:
 - Email: admin@example.com
 - Password: admin
 
+- for User Credentials - you can register with valid email id
 12. Tests
 To run tests, use pytest:
     ```sh
