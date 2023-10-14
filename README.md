@@ -19,65 +19,66 @@ This is a movie API project built with Flask and SQLite. It allows users to regi
     python -m venv venv
     
 3. Activate the virtual environment:
-On Windows:
+-On Windows:
     ```sh
     venv\Scripts\activate
-On macOS and Linux:
+
+-On macOS and Linux:
     ```sh
     source venv/bin/activate
 
-3. Install dependencies:
+4. Install dependencies:
     ```sh
     pip install -r requirements.txt
 
-4. Create a .env file in the project root and set your ZeroBounce API key:
-    makefile
-    ZEROBOUNCE_API_KEY=your_api_key
-    (Get your API key by registering at ZeroBounce)
+5. Create a .env file in the project root and set your ZeroBounce API key:
+-ZEROBOUNCE_API_KEY=your_api_key
+-Get your API key by registering at ZeroBounce "https://www.zerobounce.net/members/signin"
 
-5. Populate the SQLite database:
+6. Populate the SQLite database:
     ```sh
     python populate_db.py
 
-6. Create _static and _templates folders inside app/docs/source folder.
+7. Create _static and _templates folders inside app/docs/source folder.
     
-7. Build the documentation:
+8. Build the documentation:
     ```sh
     cd app/docs
     mkdir build
     sphinx-build -M html source build
 
-8. Create admin credentials:
+9. Create admin credentials:
     ```sh
     python add_admin.py
-    Admin credentials:
 
-    Email: admin@example.com
-    Password: admin
+-Admin credentials:
+--Email: admin@example.com
+--Password: admin
 
-9. Run the application:
+10. Run the application:
     ```sh
     flask run
-Access the application in your browser: http://127.0.0.1:5000
 
-10. Demo
-For a live demo, visit https://kunal7777.pythonanywhere.com/
+-Access the application in your browser: http://127.0.0.1:5000
 
-Admin Credentials:
-Email: admin@example.com
-Password: admin
+11. Demo
+-For a live demo, visit https://kunal7777.pythonanywhere.com/
 
-11. Tests
+-Admin Credentials:
+--Email: admin@example.com
+--Password: admin
+
+12. Tests
 To run tests, use pytest:
     ```sh
     pytest
 
-12. To view the test coverage report:
+13. To view the test coverage report:
     ```sh
     coverage run -m pytest
     coverage report
 
-13. For a detailed HTML coverage report:
+14. For a detailed HTML coverage report:
     ```sh
     coverage html
 
