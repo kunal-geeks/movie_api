@@ -73,6 +73,7 @@ Admin Credentials:
 User Credentials: you can register with valid email id
 
 12. Tests
+
 To run tests, use pytest:
     ```sh
     pytest
