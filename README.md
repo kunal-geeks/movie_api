@@ -70,7 +70,8 @@ Admin Credentials:
 - Email: admin@example.com
 - Password: admin
 
-- for User Credentials - you can register with valid email id
+User Credentials: you can register with valid email id
+
 12. Tests
 To run tests, use pytest:
     ```sh
